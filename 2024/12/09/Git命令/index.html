@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Git命令 | Moeblack&#39;s Blog | Fun For the Earth</title>
+
+  
+  <meta name="author" content="Moeblack">
+  
+
+  
+  <meta name="description" content="Gamer, Player, Programmer">
+  
+
+  
+  
+  <meta name="keywords" content="tools,git,article">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Git命令"/>
+
+  <meta property="og:site_name" content="Moeblack&#39;s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Moeblack&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">Moeblack&#39;s Blog</a>
+    </h1>
+    <p class="site-description">Fun For the Earth</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Git命令</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2024/12/09/Git命令/" rel="bookmark">
+        <time class="entry-date published" datetime="2024-12-09T08:59:07.000Z">
+          2024-12-09
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>Git这个工具在Windows上天天出现权限问题，记录一下常用的解决方法和命令。</p>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="配置用户名和邮箱"><a href="#配置用户名和邮箱" class="headerlink" title="配置用户名和邮箱"></a>配置用户名和邮箱</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;your_name&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;your_email&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置ssh"><a href="#配置ssh" class="headerlink" title="配置ssh"></a>配置ssh</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;your_email&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>之后会在<code>~/.ssh/</code>目录下生成<code>id_ed25519</code>和<code>id_ed25519.pub</code>两个文件。用记事本软件打开<code>id_ed25519.pub</code>文件，复制里面的内容，然后粘贴到github的ssh公钥中。<br>具体是在settings -&gt; SSH and GPG keys -&gt; New SSH key -&gt; 粘贴内容 -&gt; Add SSH key。</p>
+<h2 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理"></a>配置代理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy http://127.0.0.1:7890</span><br><span class="line">git config --global https.proxy https://127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+
+<h2 id="取消代理"><a href="#取消代理" class="headerlink" title="取消代理"></a>取消代理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看git设置项内容"><a href="#查看git设置项内容" class="headerlink" title="查看git设置项内容"></a>查看git设置项内容</h2><p>例如查看代理设置内容，查看邮箱设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy</span><br><span class="line">git config --global user.email</span><br></pre></td></tr></table></figure>
+
+<p>即可。</p>
+<h1 id="Git推送踩坑指令相关"><a href="#Git推送踩坑指令相关" class="headerlink" title="Git推送踩坑指令相关"></a>Git推送踩坑指令相关</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<p>查看上游</p>
+<p>如果没有，使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/Moeblack/moeblack.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>以后 origin 就是上游，代表了github仓库。</p>
+<h2 id="推送本地-master-分支到远程-main-分支并设置上游"><a href="#推送本地-master-分支到远程-main-分支并设置上游" class="headerlink" title="推送本地 master 分支到远程 main 分支并设置上游"></a>推送本地 master 分支到远程 main 分支并设置上游</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master:main</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>命令解释：<br>git push： 推送命令。<br>-u： 设置上游分支（–set-upstream 的简写）。<br>origin： 远程仓库的别名。<br>master:main： 将本地的 master 分支推送到远程的 main 分支。</p>
+</blockquote>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Tools/">Tools</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/tools/">tools</a><a href="/tags/git/">git</a><a href="/tags/article/">article</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2024 Moeblack
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>
