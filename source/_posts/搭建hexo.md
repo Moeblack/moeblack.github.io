@@ -93,3 +93,85 @@ jobs:
 1. 使用github actions部署时，需要使用hexo-deployer-git插件，否则会报错。
 2. 现在github已经步入了main时代，master分支已经不再使用，所以需要将main分支设置为默认分支。
 3. github actions 需要自己撰写，注意配置文件的正确性。
+4. ssh认证，需要配置ssh公钥和私钥，否则会报错。
+
+> 在 GitHub Actions 中，如果你想使用 SSH 密钥进行认证，并使用环境变量 `${{ env.DEPLOY_KEY }}` 存储私钥，你通常不需要手动执行 Git 命令来设置 SSH 认证。而是使用现成的 Action，例如 `webfactory/ssh-agent`，来为你管理 SSH 代理和私钥。
+
+> **以下是使用 `webfactory/ssh-agent` Action 的步骤和说明：**
+> 
+> **1. 生成 SSH 密钥对：**
+> 
+>    如果你还没有 SSH 密钥对，可以使用以下命令生成：
+> 
+>    ```bash
+>    ssh-keygen -t ed25519 -C "your-email@example.com"
+>    ```
+> 
+>    将 `your-email@example.com` 替换为你的 GitHub 邮箱。按提示操作，记住私钥的保存位置（通常是 `~/.ssh/id_ed25519`）。
+> 
+> **2. 将公钥添加到 GitHub：**
+> 
+>    *   复制公钥内容：
+> 
+>        ```bash
+>        cat ~/.ssh/id_ed25519.pub
+>        ```
+> 
+>    *   打开你的 GitHub 账户设置，进入 "SSH and GPG keys" 页面。
+>    *   点击 "New SSH key"。
+>    *   在 "Title" 中填写一个描述性的名称（例如 "GitHub Actions Deploy Key"）。
+>    *   将复制的公钥内容粘贴到 "Key" 字段中。
+>    *   点击 "Add SSH key"。
+> 
+> **3. 将私钥添加到 GitHub Actions Secrets：**
+> 
+>    *   打开你的 GitHub 仓库的 "Settings" -> "Security" -> "Secrets and variables" -> "Actions" 页面。
+>    *   点击 "New repository secret"。
+>    *   在 "Name" 字段中输入 `DEPLOY_KEY`（或其他你喜欢的名称）。
+>    *   **将私钥内容（不是公钥）复制并粘贴到 "Secret" 字段中。** 注意：是 `~/.ssh/id_ed25519` 文件的内容，不是 `.pub` 文件。
+>    *   点击 "Add secret"。
+> 
+> **4. 修改 `deploy.yml` 文件：**
+> 
+>    在你的 Workflow 文件 (`.github/workflows/deploy.yml`) 中，添加以下步骤：
+> 
+>    ```yaml
+>    - name: Start SSH Agent
+>      uses: webfactory/ssh-agent@v0.9.0
+>      with:
+>        ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+> 
+>    - name: Deploy to GitHub Pages (using hexo-deployer-git)
+>      run: npx hexo deploy
+>      env:
+>        GIT_USER: ${{ secrets.GIT_USER }}
+>        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+> 
+>    - name: Configure Git User (Optional)
+>      if: env.GIT_USER != '' && env.GIT_EMAIL != ''
+>      run: |
+>          git config --global user.name "${{ env.GIT_USER }}"
+>          git config --global user.email "${{ env.GIT_EMAIL }}"
+>    ```
+> 
+> **代码解释：**
+> 
+> *   **`webfactory/ssh-agent@v0.9.0` Action：**
+>     *   **`uses: webfactory/ssh-agent@v0.9.0`：**  指定使用的 Action。
+>     *   **`with: ssh-private-key: ${{ secrets.DEPLOY_KEY }}`：**  将 `DEPLOY_KEY` Secret 的内容（即你的私钥）提供给 SSH 代理。
+> *   **后续步骤：**
+>     *   在 `webfactory/ssh-agent` 启动并配置好 SSH 代理后，后续的步骤（例如 `npx hexo deploy`）就可以通过 SSH 协议进行 Git 操作，无需再进行额外的认证配置。
+> 
+> **总结：**
+> 
+> 在 GitHub Actions 中使用 SSH 密钥进行认证的推荐方法是使用 `webfactory/ssh-agent` Action。你不需要手动执行 Git 命令来设置 SSH 认证，`webfactory/ssh-agent` Action 会帮你处理好这些细节。你只需要将私钥存> 储在 Secrets 中，并在 Workflow 文件中引用它即可。
+> 
+> **关键点：**
+> 
+> *   使用 `webfactory/ssh-agent` Action 来管理 SSH 代理。
+> *   将私钥存储在名为 `DEPLOY_KEY` 的 Secret 中。
+> *   在 `webfactory/ssh-agent` 的配置中，使用 `ssh-private-key: ${{ secrets.DEPLOY_KEY }}` 将私钥提供给 SSH 代理。
+> *   确保你的 `_config.yml` 文件中 `deploy` 部分的 `repo` 字段使用的是 SSH 链接地址, 例如: `git@github.com:your-username/your-repo.git`
+> 
+> 通过这种方式，你的 GitHub Actions Workflow 就可以使用 SSH 密钥安全地进行 Git 操作，将你的 Hexo 博客部署到 GitHub Pages。
+
