@@ -40,11 +40,11 @@ github pages 可以自由选择发布分支，例如我选择gh-pages分支，�
 
 ```yml
 name: Deploy Hexo Blog
-
+            
 on:
   push:
     branches:
-      - main  # 或者你的主分支名称，例如 master
+      - master  # 或者你的主分支名称，例如 master
     paths:
       - 'source/_posts/**'
 
@@ -66,24 +66,25 @@ jobs:
 
     - name: Build Hexo
       run: npx hexo generate
+      
+    - name: Start SSH Agent
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-    - name: Configure Git User
+    - name: Configure Git User & Deploy Hexo
       env:
         GIT_USER: ${{ secrets.GIT_USER }} # 可选，Git 用户名
         GIT_EMAIL: ${{ secrets.GIT_EMAIL }} # 可选，Git 邮箱
         # 如果你的 hexo-deployer-git 需要其他环境变量，也在这里添加
+      if: env.GIT_USER != '' && env.GIT_EMAIL != ''
       run: |
           git config --global user.name "${{ env.GIT_USER }}"
           git config --global user.email "${{ env.GIT_EMAIL }}"
-
-    - name: Deploy to GitHub Pages (using hexo-deployer-git)
-      run: npx hexo deploy
-
-
-
+          npx hexo deploy
 ```
 
-之后在settings -> secrets and variables -> actions -> 点击New repository secret -> 输入GIT_USER和GIT_EMAIL -> 点击Add secret。
+之后在settings -> secrets and variables -> actions -> 点击New repository secret -> 输入GIT_USER和GIT_EMAIL和你的DEPLOY_KEY -> 点击Add secret。
 
 这之后，每次推送到main分支，就会自动部署到github pages上。 
 
