@@ -1,5 +1,5 @@
 name: Deploy Hexo Blog
-
+            
 on:
   push:
     branches:
@@ -25,18 +25,25 @@ jobs:
 
     - name: Build Hexo
       run: npx hexo generate
+      
+    - name: Start SSH Agent
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-    - name: Configure Git User
+    - name: Configure Git User & Deploy Hexo
       env:
         GIT_USER: ${{ secrets.GIT_USER }} # 可选，Git 用户名
         GIT_EMAIL: ${{ secrets.GIT_EMAIL }} # 可选，Git 邮箱
         # 如果你的 hexo-deployer-git 需要其他环境变量，也在这里添加
-      if: env.GIT_USER != '' && env.GIT_EMAIL != ''
+      if: env.GIT_USER != '' && env.GIT_EMAIL != '' && DEPLOY_KEY != ''
       run: |
           git config --global user.name "${{ env.GIT_USER }}"
           git config --global user.email "${{ env.GIT_EMAIL }}"
+          run: npx hexo deploy
 
-    - name: Deploy to GitHub Pages (using hexo-deployer-git)
-      run: npx hexo deploy
+    
+      
+
 
 
