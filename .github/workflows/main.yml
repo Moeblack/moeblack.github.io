@@ -40,7 +40,7 @@ jobs:
       run: |
           git config --global user.name "${{ env.GIT_USER }}"
           git config --global user.email "${{ env.GIT_EMAIL }}"
-          run: npx hexo deploy
+          npx hexo deploy
 
     
       

@@ -67,8 +67,7 @@ jobs:
     - name: Build Hexo
       run: npx hexo generate
 
-    - name: Configure Git User (Optional)
-      if: env.GIT_USER != '' && env.GIT_EMAIL != ''
+    - name: Configure Git User
       env:
         GIT_USER: ${{ secrets.GIT_USER }} # 可选，Git 用户名
         GIT_EMAIL: ${{ secrets.GIT_EMAIL }} # 可选，Git 邮箱
