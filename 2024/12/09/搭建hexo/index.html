@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>搭建hexo | Moeblack&#39;s Blog | Fun For the Earth</title>
+
+  
+  <meta name="author" content="Moeblack">
+  
+
+  
+  <meta name="description" content="Gamer, Player, Programmer">
+  
+
+  
+  
+  <meta name="keywords" content="Tools, hexo, article">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="搭建hexo"/>
+
+  <meta property="og:site_name" content="Moeblack&#39;s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Moeblack&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">Moeblack&#39;s Blog</a>
+    </h1>
+    <p class="site-description">Fun For the Earth</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>搭建hexo</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2024/12/09/搭建hexo/" rel="bookmark">
+        <time class="entry-date published" datetime="2024-12-09T08:20:07.000Z">
+          2024-12-09
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>按照本周计划搭建博客，记录一下踩坑的点。</p>
+<h1 id="搭建hexo过程中"><a href="#搭建hexo过程中" class="headerlink" title="搭建hexo过程中"></a>搭建hexo过程中</h1><p>使用cnpm安装npm，避免因为网络原因导致安装失败。</p>
+<h1 id="Github-Pages"><a href="#Github-Pages" class="headerlink" title="Github Pages"></a>Github Pages</h1><p>了解github pages的工作原理，方便之后其他静态网页工具的搭建。</p>
+<h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><p>github Pages 默认显示的就是main分支下的index.html文件的内容。也就是说以后如果有其他静态网页工具，只需要写一个相关的仓库，做好index.html入口文件，就可以部署到github pages上。</p>
+<p>例如react相关功能，可以写一个react仓库，做好index.html入口文件，就可以部署到github pages上。</p>
+<h2 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h2><p>仅能托管前端页面，如果需要使用数据库之类的功能，需要前后端分离，使用RESTful API, 在前后端之间进行通信。</p>
+<h1 id="github-actions"><a href="#github-actions" class="headerlink" title="github actions"></a>github actions</h1><p>这个自动化工具可以实现一些简单的任务，例如我可以把hexo的部署任务交给github actions，这样我就可以在本地写完文章后，直接推送到github上，github actions就会自动帮我部署到github pages上。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Tools/">Tools</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Tools-hexo-article/">Tools, hexo, article</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2024 Moeblack
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>
