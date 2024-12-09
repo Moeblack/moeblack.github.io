@@ -1,0 +1,5 @@
+menu:
+  - name: # 名称
+    url: # 链接
+
+primaryColor: '#10b981'

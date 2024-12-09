@@ -1,0 +1,12 @@
+music: true
+
+comment:
+  post_enable: false # 在文章页面增加评论模块
+  about_enable: false # 在关于页增加评论模块
+
+# Search function
+search:
+  path: search.xml
+  field: post
+  content: true
+  template: ./search.xml
