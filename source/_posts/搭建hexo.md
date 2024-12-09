@@ -109,7 +109,7 @@ jobs:
 > 
 >    将 `your-email@example.com` 替换为你的 GitHub 邮箱。按提示操作，记住私钥的保存位置（通常是 `~/.ssh/id_ed25519`）。
 > 
-> **2. 将公钥添加到 GitHub：**
+> **2. 将公钥添加到 GitHub：** 
 > 
 >    *   复制公钥内容：
 > 
