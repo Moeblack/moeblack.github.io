@@ -67,18 +67,21 @@ jobs:
     - name: Build Hexo
       run: npx hexo generate
 
-    - name: Deploy to GitHub Pages (using hexo-deployer-git)
-      run: npx hexo deploy
+    - name: Configure Git User (Optional)
+      if: env.GIT_USER != '' && env.GIT_EMAIL != ''
       env:
         GIT_USER: ${{ secrets.GIT_USER }} # 可选，Git 用户名
         GIT_EMAIL: ${{ secrets.GIT_EMAIL }} # 可选，Git 邮箱
         # 如果你的 hexo-deployer-git 需要其他环境变量，也在这里添加
-
-    - name: Configure Git User (Optional)
-      if: env.GIT_USER != '' && env.GIT_EMAIL != ''
       run: |
           git config --global user.name "${{ env.GIT_USER }}"
           git config --global user.email "${{ env.GIT_EMAIL }}"
+
+    - name: Deploy to GitHub Pages (using hexo-deployer-git)
+      run: npx hexo deploy
+
+
+
 ```
 
 之后在settings -> secrets and variables -> actions -> 点击New repository secret -> 输入GIT_USER和GIT_EMAIL -> 点击Add secret。
@@ -89,3 +92,4 @@ jobs:
 
 1. 使用github actions部署时，需要使用hexo-deployer-git插件，否则会报错。
 2. 现在github已经步入了main时代，master分支已经不再使用，所以需要将main分支设置为默认分支。
+3. github actions 需要自己撰写，注意配置文件的正确性。
