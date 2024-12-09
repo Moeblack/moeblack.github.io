@@ -86,7 +86,7 @@ jobs:
 
 之后在settings -> secrets and variables -> actions -> 点击New repository secret -> 输入GIT_USER和GIT_EMAIL -> 点击Add secret。
 
-这之后，每次推送到main分支，就会自动部署到github pages上。
+这之后，每次推送到main分支，就会自动部署到github pages上。 
 
 ## 踩坑
 
